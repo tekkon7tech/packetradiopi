@@ -1,0 +1,11 @@
+[Unit]
+Description=Hello World Server
+
+[Install]
+Wantedby=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/opt/direwolf/direwolf -c direwolf2.conf -p
+ExecStop=/bin/kill -s SIGINT -$MAINPID
+WorkingDirectory=/opt/direwolf
