@@ -1,3 +1,12 @@
+#!/bin/bash
+function pause()
+{
+  read -p "Press key to continue.. " -n1 -s
+  echo -e "\n"
+}
+
+function basepackages()
+{
 apt -y install git
 apt -y install gcc
 apt -y install g++
@@ -7,7 +16,14 @@ apt -y install libasound2-dev
 apt -y install libudev-dev
 apt -y install libavahi-client-dev
 apt -y install alsa-utils
+apt -y install acl
+apt -u install zlib1g-dev
 
+pause 
+}
+
+function installdw()
+{
 cd ~
 git clone https://www.github.com/wb2osz/direwolf
 cd direwolf
@@ -18,7 +34,11 @@ make -j4
 sudo make install
 make install-conf
 cd ~
+pause
+}
 
+function configaccess()
+{
 read -p ' Enter Username: ' username
 
 groupadd packetradio
@@ -34,6 +54,11 @@ usermod -aG audio prad
 usermod -aG plugdev prad
 usermod -aG packetradio prad
 
+pause
+}
+
+function configbbs()
+{
 mkdir /opt/direwolf
 mkdir /opt/linbpq
 mkdir /opt/hamtrek
@@ -50,6 +75,42 @@ apt -y install libminiupnpc-dev
 cd ~/linbpq
 make
 cp ~/linbpq/linbpq /opt/linbpq
-cd ~/hamtrek
+cd ~/hamtrek/src
 make
-cp ~/hamtrek/hamtrek /opt/hamtrek
+cp ~/hamtrek/src/hamtrek /opt/hamtrek
+}
+
+function menu()
+{
+  echo "Linux / PI Packet Radio Build"
+  echo " [A] - Build all"
+  echo " [P] - Install base packages"
+  echo " [D] - Build/Install Direwolf"
+  echo " [G] - Configure Group Access"
+  echo " [B] - Install BBS"
+  echo " [Q] - Quit"
+  read -p "Choose an option:  " -n1 -s menuin
+
+  case $menuin in
+    A|a)
+      basepackages
+      installdw
+      configaccess
+      configbbs
+      ;;
+    P|p)
+      basepackages
+      ;;
+    D|d)
+      installdw
+      ;;
+    G|g)
+      echo "Config Access"
+      configaccess
+      ;;
+    B|b)
+      configbbs
+      ;;
+  esac
+}
+menu
