@@ -59,6 +59,9 @@ function configaccess()
 
 function configbbs()
 {
+  cd ~
+  git clone https://github.com/tekkon7tech/packetradiopi
+
   mkdir /opt/direwolf
   setfacl -d -m g:packetradio:rwx /opt/direwolf
   setfacl -m g:packetradio:rwx /opt/direwolf
@@ -83,6 +86,19 @@ function configbbs()
   cd ~/hamtrek/src
   make
   cp ~/hamtrek/src/hamtrek /opt/hamtrek
+
+  cp ~/packetradiopi/direwolf.service /etc/systemd/system/
+  cp ~/packetradiopi/linbpq.service /etc/systemd/system/
+  cp ~/packetradiopi/hamtrek@.service /etc/systemd/system/
+  cp ~/packetradiopi/hamtrek.socket /etc/systemd/system/
+
+  systemctl daemon-reload
+  systemctl enable hamtrek.socket
+  systemctl enable direwolf.service
+  systemctl enable linbpq.service
+  systemctl start hamtrek.socket
+  systemctl start direwolf.service
+  systemctl start linbpq.service
 }
 
 function menu()
