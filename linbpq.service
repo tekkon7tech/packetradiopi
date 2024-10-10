@@ -2,7 +2,7 @@
 Description=LinBPQ Server
 
 [Install]
-Wantedby=multi-user.target
+WantedBy=multi-user.target
 
 [Service]
 Type=simple
