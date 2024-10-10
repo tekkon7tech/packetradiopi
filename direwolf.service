@@ -1,11 +1,15 @@
 [Unit]
-Description=Hello World Server
+Description=Direwolf Server
 
 [Install]
 Wantedby=multi-user.target
 
 [Service]
 Type=simple
+User=prad
+Group=packetradio
 ExecStart=/opt/direwolf/direwolf -c direwolf2.conf -p
 ExecStop=/bin/kill -s SIGINT -$MAINPID
 WorkingDirectory=/opt/direwolf
+StandardOutput=file:/opt/direwolf/log/dwstdout
+After=network.target

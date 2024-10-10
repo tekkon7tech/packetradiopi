@@ -1,0 +1,6 @@
+[Unit]
+Description=Hamtrek Server
+
+[Service]
+ExecStart=/opt/hamtrek/hamtrek -h
+StandardInput=socket

@@ -1,0 +1,15 @@
+[Unit]
+Description=LinBPQ Server
+
+[Install]
+Wantedby=multi-user.target
+
+[Service]
+Type=simple
+User=prad
+Group=packetradio
+ExecStart=/opt/linbpq/linbpq
+ExecStop=/bin/kill -s SIGINT -$MAINPID
+WorkingDirectory=/opt/linbpq
+StandardOutput=file:/opt/linbpq/log/bpqstdout
+Requires=direwolf.service

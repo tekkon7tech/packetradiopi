@@ -1,0 +1,9 @@
+[Unit]
+Description=Hamtrek BPQ
+
+[Socket]
+ListenStream=63001
+Accept=yes
+
+[Install]
+WantedBy=sockets.target
