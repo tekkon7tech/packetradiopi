@@ -17,9 +17,10 @@ function basepackages()
   apt -y install libavahi-client-dev
   apt -y install alsa-utils
   apt -y install acl
-  apt -u install zlib1g-dev
+  apt -y install zlib1g-dev
+  apt -y install tmux
 
-  pause 
+  pause
 }
 
 function installdw()
