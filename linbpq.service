@@ -5,11 +5,13 @@ Description=LinBPQ Server
 WantedBy=multi-user.target
 
 [Service]
-Type=simple
+Type=oneshot
+RemainAfterExit=yes
 User=prad
 Group=packetradio
-ExecStart=/opt/linbpq/linbpq
-ExecStop=/bin/kill -s SIGINT -$MAINPID
+ExecStartPre=/bin/sleep 30
+ExecStart=/usr/bin/tmux new-session -s bpq%i -d '/opt/linbpq/linbpq'
+ExecStop=/usr/bin/tmux send-keys -t bpq%i C-c
+KillMode=none
 WorkingDirectory=/opt/linbpq
-StandardOutput=file:/opt/linbpq/log/bpqstdout
 Requires=direwolf.service

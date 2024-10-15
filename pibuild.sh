@@ -63,14 +63,17 @@ function configbbs()
   git clone https://github.com/tekkon7tech/packetradiopi
 
   mkdir /opt/direwolf
+  chmod -R g+rwx /opt/direwolf
   setfacl -d -m g:packetradio:rwx /opt/direwolf
   setfacl -m g:packetradio:rwx /opt/direwolf
   mkdir /opt/direwolf/log
   mkdir /opt/linbpq
+  chmod -R g+rwx /opt/linbpq
   setfacl -d -m g:packetradio:rwx /opt/linbpq
   setfacl -m g:packetradio:rwx /opt/linbpq
   mkdir /opt/linbpq/log
   mkdir /opt/hamtrek
+  chmod -R g+rwx /opt/hamtrek
   setfacl -d -m g:packetradio:rwx /opt/hamtrek
   setfacl -m g:packetradio:rwx /opt/hamtrek
 
@@ -88,17 +91,22 @@ function configbbs()
   cp ~/hamtrek/src/hamtrek /opt/hamtrek
 
   cp ~/packetradiopi/direwolf.service /etc/systemd/system/
+  cp ~/packetradiopi/direwolf.conf /opt/direwolf
   cp ~/packetradiopi/linbpq.service /etc/systemd/system/
+  cp ~/packetradiopi/bpq32.cfg /opt/linbpq
   cp ~/packetradiopi/hamtrek@.service /etc/systemd/system/
   cp ~/packetradiopi/hamtrek.socket /etc/systemd/system/
+
+  cp ~/packetradiopi/direwolf.conf /opt/direwolf
+  cp ~/packetradiopi/bpq32.cfg /opt/linbpq
 
   systemctl daemon-reload
   systemctl enable hamtrek.socket
   systemctl enable direwolf.service
   systemctl enable linbpq.service
-  systemctl start hamtrek.socket
-  systemctl start direwolf.service
-  systemctl start linbpq.service
+#  systemctl start hamtrek.socket
+#  systemctl start direwolf.service
+#  systemctl start linbpq.service
 }
 
 function menu()

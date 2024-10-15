@@ -2,5 +2,7 @@
 Description=Hamtrek Server
 
 [Service]
+User=prad
+Group=packetradio
 ExecStart=/opt/hamtrek/hamtrek -h
 StandardInput=socket

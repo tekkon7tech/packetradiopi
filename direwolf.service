@@ -5,11 +5,13 @@ Description=Direwolf Server
 WantedBy=multi-user.target
 
 [Service]
-Type=simple
+Type=oneshot
+RemainAfterExit=yes
 User=prad
 Group=packetradio
-ExecStart=/opt/direwolf/direwolf -c direwolf2.conf -p
-ExecStop=/bin/kill -s SIGINT -$MAINPID
+ExecStart=/usr/bin/tmux new-session -s dw%i -d '/usr/local/bin/direwolf -c /opt/direwolf/direwolf.conf -p'
+ExecStop=/usr/bin/tmux send-keys -t dw%i C-c
+KillMode=none
 WorkingDirectory=/opt/direwolf
-StandardOutput=file:/opt/direwolf/log/dwstdout
+After=sound.target
 After=network.target
